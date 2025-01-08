@@ -2,5 +2,14 @@
 
 <PageTitle>ChatBot</PageTitle>
 
-<ChatMessages />
-<ChatInput />
+<ChatMessages @ref="chatMessagesRef" />
+<ChatInput OnMessageSent="HandleMessageSent" />
+
+@code {
+    private ChatMessages chatMessagesRef;
+
+    private async Task HandleMessageSent()
+    {
+        await chatMessagesRef.RefreshMessages();
+    }
+}

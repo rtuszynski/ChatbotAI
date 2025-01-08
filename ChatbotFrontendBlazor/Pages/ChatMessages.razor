@@ -1,6 +1,7 @@
 ﻿@using ChatbotFrontendBlazor.Models
 @using ChatbotFrontendBlazor.Services
 @inject ChatService ChatService
+@inject IJSRuntime JSRuntime
 
 <div class="container mt-4">
     <h3 class="text-primary">Chat Messages</h3>
@@ -11,7 +12,7 @@
     }
     else
     {
-        <div class="list-group" style="max-height: 400px; overflow-y: auto;">
+        <div class="list-group" id="chatMessages" style="max-height: 400px; overflow-y: auto;">
             @foreach (var message in messages)
             {
                 <div class="list-group-item">
@@ -40,5 +41,17 @@
     {
         await ChatService.UpdateRatingAsync(id, rating);
         messages = await ChatService.GetMessagesAsync();
+    }
+
+    public async Task RefreshMessages()
+    {
+        messages = await ChatService.GetMessagesAsync();
+        StateHasChanged();
+        await ScrollToBottom();
+    }
+
+    private async Task ScrollToBottom()
+    {
+        await JSRuntime.InvokeVoidAsync("scrollToBottom");
     }
 }

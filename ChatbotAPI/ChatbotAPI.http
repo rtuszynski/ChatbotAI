@@ -4,6 +4,7 @@ GET {{ChatbotAPI_HostAddress}}/api/chat/messages
 Accept: application/json
 
 ###
+
 POST {{ChatbotAPI_HostAddress}}/api/chat/messages
 Content-Type: application/json
 
@@ -13,6 +14,7 @@ Content-Type: application/json
 }
 
 ###
+
 PUT {{ChatbotAPI_HostAddress}}/api/chat/messages/1/rating
 Content-Type: application/json
 

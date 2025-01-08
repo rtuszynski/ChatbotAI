@@ -13,16 +13,20 @@
 @code {
     private string userMessage;
 
+    [Parameter] public EventCallback OnMessageSent { get; set; }
+
     private async Task SendMessage()
     {
         var message = new ChatMessage
             {
                 UserMessage = userMessage,
                 BotResponse = "Response from bot",
-                Rating = 0
+                Rating = null
             };
 
         await ChatService.AddMessageAsync(message);
+        await OnMessageSent.InvokeAsync();
+
         userMessage = string.Empty;
     }
 }

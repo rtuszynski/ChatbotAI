@@ -27,6 +27,13 @@
         <a class="dismiss">🗙</a>
     </div>
     <script src="_framework/blazor.webassembly.js"></script>
+
+    <script>
+        function scrollToBottom() {
+            var element = document.getElementById('chatMessages');
+            element.scrollTop = element.scrollHeight;
+        }
+    </script>
 </body>
 
 </html>

@@ -100,6 +100,7 @@
         {
             var lastMessage = messages.Last();
             botResponse = string.Empty;
+            await JSRuntime.InvokeVoidAsync("clearElementContent", $"botResponse-{lastMessage.Id}");
             await JSRuntime.InvokeVoidAsync("typeWriter", $"botResponse-{lastMessage.Id}", lastMessage.BotResponse);
         }
     }

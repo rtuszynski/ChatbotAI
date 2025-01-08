@@ -1,4 +1,4 @@
-﻿function typeWriter(elementId, text, delay = 100) {
+﻿function typeWriter(elementId, text, delay = 50) {
     let i = 0;
     function type() {
         if (i < text.length) {
@@ -8,4 +8,8 @@
         }
     }
     type();
+}
+
+function clearElementContent(elementId) {
+    document.getElementById(elementId).innerHTML = '';
 }

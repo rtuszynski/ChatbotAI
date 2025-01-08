@@ -1,8 +1,14 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ChatComponent } from './chat/chat/chat.component';  // Importowanie standalone komponentu
+import { RouterModule, Routes } from '@angular/router';  // Import RouterModule
+
+// Zdefiniuj trasy (w tym przypadku tylko jedna)
+const routes: Routes = [
+  { path: '', component: ChatComponent },
+  // Możesz dodać inne trasy tutaj, jeśli chcesz
+];
 
 @NgModule({
   declarations: [
@@ -10,7 +16,8 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    RouterModule.forRoot(routes),  // Dodaj RouterModule i zdefiniowane trasy
+    ChatComponent  // Używamy standalone komponentu
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,25 @@
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 64px);
+  padding: 16px;
+}
+
+.chat-history {
+  flex: 1;
+  overflow-y: auto;
+  margin-bottom: 16px;
+}
+
+.user-message, .bot-response {
+  margin: 8px 0;
+}
+
+.chat-input {
+  display: flex;
+  gap: 8px;
+}
+
+.input-field {
+  flex: 1;
+}

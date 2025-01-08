@@ -1,0 +1,33 @@
+<mat-toolbar color="primary">
+  <span>Chatbot AI</span>
+</mat-toolbar>
+
+<div class="chat-container">
+  <div class="chat-history" *ngFor="let message of chatHistory">
+    <div class="user-message">
+      <strong>Ty:</strong> {{ message.userMessage }}
+    </div>
+    <div class="bot-response">
+      <strong>Bot:</strong> {{ message.botResponse }}
+
+      <!-- Pokazanie ikony oceny -->
+      <div>
+        <button mat-icon-button (click)="rateMessage(message.id, '👍')">
+          <mat-icon color="accent">thumb_up</mat-icon>
+        </button>
+        <button mat-icon-button (click)="rateMessage(message.id, '👎')">
+          <mat-icon color="warn">thumb_down</mat-icon>
+        </button>
+        <span *ngIf="message.rating">{{ message.rating }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="chat-input">
+    <mat-form-field appearance="outline" class="input-field">
+      <mat-label>Twoja wiadomość</mat-label>
+      <input matInput [(ngModel)]="userMessage" />
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="sendMessage()">Wyślij</button>
+  </div>
+</div>

@@ -13,7 +13,7 @@
     else
     {
         <div class="list-group" id="chatMessages" style="max-height: 400px; overflow-y: auto;">
-            @foreach (var message in messages)
+            @foreach (var message in messages.Take(messages.Count - 1))
             {
                 <div class="list-group-item">
                     <strong class="text-secondary">User:</strong> @message.UserMessage<br />
@@ -35,6 +35,33 @@
                     <div class="mt-2">
                         <button class="btn btn-success btn-sm me-2" @onclick="() => UpdateRating(message.Id, 1)">👍</button>
                         <button class="btn btn-danger btn-sm" @onclick="() => UpdateRating(message.Id, -1)">👎</button>
+                    </div>
+                </div>
+            }
+
+            @if (messages.Count > 0)
+            {
+                var lastMessage = messages.Last();
+                <div class="list-group-item">
+                    <strong class="text-secondary">User:</strong> @lastMessage.UserMessage<br />
+                    <strong class="text-secondary">Bot:</strong> <span id="botResponse-@lastMessage.Id">@lastMessage.BotResponse</span><br />
+
+                    @if (lastMessage.Rating != null)
+                    {
+                        <strong class="text-secondary">Rating: </strong>
+                        @if (lastMessage.Rating == 1)
+                        {
+                            <strong class="text-success">GOOD</strong>
+                        }
+                        else if (lastMessage.Rating == -1)
+                        {
+                            <strong class="text-danger">BAD</strong>
+                        }
+                    }
+
+                    <div class="mt-2">
+                        <button class="btn btn-success btn-sm me-2" @onclick="() => UpdateRating(lastMessage.Id, 1)">👍</button>
+                        <button class="btn btn-danger btn-sm" @onclick="() => UpdateRating(lastMessage.Id, -1)">👎</button>
                     </div>
                 </div>
             }

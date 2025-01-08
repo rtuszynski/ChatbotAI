@@ -44,7 +44,7 @@
                 var lastMessage = messages.Last();
                 <div class="list-group-item">
                     <strong class="text-secondary">User:</strong> @lastMessage.UserMessage<br />
-                    <strong class="text-secondary">Bot:</strong> <span id="botResponse-@lastMessage.Id">@lastMessage.BotResponse</span><br />
+                    <strong class="text-secondary">Bot:</strong> <span id="botResponse-@lastMessage.Id"></span><br />
 
                     @if (lastMessage.Rating != null)
                     {
@@ -88,6 +88,11 @@
         messages = await ChatService.GetMessagesAsync();
         StateHasChanged();
         await ScrollToBottom();
+        if (messages.Count > 0)
+        {
+            var lastMessage = messages.Last();
+            await JSRuntime.InvokeVoidAsync("typeWriter", $"botResponse-{lastMessage.Id}", lastMessage.BotResponse);
+        }
     }
 
     private async Task ScrollToBottom()

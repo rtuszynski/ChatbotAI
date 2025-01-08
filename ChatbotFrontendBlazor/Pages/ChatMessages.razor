@@ -18,7 +18,20 @@
                 <div class="list-group-item">
                     <strong class="text-secondary">User:</strong> @message.UserMessage<br />
                     <strong class="text-secondary">Bot:</strong> @message.BotResponse<br />
-                    <strong class="text-secondary">Rating:</strong> @message.Rating
+
+                    @if (message.Rating != null)
+                    {
+                        <strong class="text-secondary">Rating: </strong>
+                        @if (message.Rating == 1)
+                        {
+                            <strong class="text-success">GOOD</strong>
+                        }
+                        else if (message.Rating == -1)
+                        {
+                            <strong class="text-danger">BAD</strong>
+                        }
+                    }
+
                     <div class="mt-2">
                         <button class="btn btn-success btn-sm me-2" @onclick="() => UpdateRating(message.Id, 1)">👍</button>
                         <button class="btn btn-danger btn-sm" @onclick="() => UpdateRating(message.Id, -1)">👎</button>

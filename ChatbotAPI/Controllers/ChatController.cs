@@ -36,7 +36,7 @@ public class ChatController : ControllerBase
     }
 
     [HttpPut("messages/{id}/rating")]
-    public async Task<IActionResult> UpdateRating(int id, [FromBody] string rating)
+    public async Task<IActionResult> UpdateRating(int id, [FromBody] int rating)
     {
         if (!ModelState.IsValid)
         {

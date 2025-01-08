@@ -101,3 +101,12 @@ a, .btn-link {
 code {
     color: #c02d76;
 }
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.text-danger {
+    margin-top: 0.5rem;
+    display: block;
+}

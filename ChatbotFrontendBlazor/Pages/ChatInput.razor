@@ -4,28 +4,27 @@
 
 <div class="container mt-4">
     <h3 class="text-primary">Send a Message</h3>
-    <div class="input-group">
-        <input class="form-control" @bind="userMessage" placeholder="Your message" />
-        <button class="btn btn-primary" @onclick="SendMessage">Send</button>
-    </div>
+    <EditForm Model="newMessage" OnValidSubmit="SendMessage">
+        <DataAnnotationsValidator />
+
+        <div class="form-group">
+            <InputText class="form-control" @bind-Value="newMessage.UserMessage" placeholder="Your message" />
+            <ValidationMessage For="@(() => newMessage.UserMessage)" class="text-danger" />
+        </div>
+        <button class="btn btn-primary" type="submit">Send</button>
+    </EditForm>
 </div>
 
 @code {
-    private string userMessage;
+    private ChatMessage newMessage = new ChatMessage();
 
     [Parameter] public EventCallback OnMessageSent { get; set; }
 
     private async Task SendMessage()
     {
-        var message = new ChatMessage
-            {
-                UserMessage = userMessage,
-                Rating = null
-            };
-
-        await ChatService.AddMessageAsync(message);
+        await ChatService.AddMessageAsync(newMessage);
         await OnMessageSent.InvokeAsync();
 
-        userMessage = string.Empty;
+        newMessage = new ChatMessage();
     }
 }

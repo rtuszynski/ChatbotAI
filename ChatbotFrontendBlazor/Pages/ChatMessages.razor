@@ -1,0 +1,44 @@
+﻿@using ChatbotFrontendBlazor.Models
+@using ChatbotFrontendBlazor.Services
+@inject ChatService ChatService
+
+<div class="container mt-4">
+    <h3 class="text-primary">Chat Messages</h3>
+
+    @if (messages == null)
+    {
+        <p class="text-muted">Loading...</p>
+    }
+    else
+    {
+        <div class="list-group" style="max-height: 400px; overflow-y: auto;">
+            @foreach (var message in messages)
+            {
+                <div class="list-group-item">
+                    <strong class="text-secondary">User:</strong> @message.UserMessage<br />
+                    <strong class="text-secondary">Bot:</strong> @message.BotResponse<br />
+                    <strong class="text-secondary">Rating:</strong> @message.Rating
+                    <div class="mt-2">
+                        <button class="btn btn-success btn-sm me-2" @onclick="() => UpdateRating(message.Id, 1)">👍</button>
+                        <button class="btn btn-danger btn-sm" @onclick="() => UpdateRating(message.Id, -1)">👎</button>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+@code {
+    private List<ChatMessage> messages;
+
+    protected override async Task OnInitializedAsync()
+    {
+        messages = await ChatService.GetMessagesAsync();
+    }
+
+    private async Task UpdateRating(int id, int rating)
+    {
+        await ChatService.UpdateRatingAsync(id, rating);
+        messages = await ChatService.GetMessagesAsync(); // Refresh list
+    }
+}

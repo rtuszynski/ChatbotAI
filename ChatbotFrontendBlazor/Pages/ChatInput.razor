@@ -1,0 +1,28 @@
+﻿@using ChatbotFrontendBlazor.Models
+@using ChatbotFrontendBlazor.Services
+@inject ChatService ChatService
+
+<div class="container mt-4">
+    <h3 class="text-primary">Send a Message</h3>
+    <div class="input-group">
+        <input class="form-control" @bind="userMessage" placeholder="Your message" />
+        <button class="btn btn-primary" @onclick="SendMessage">Send</button>
+    </div>
+</div>
+
+@code {
+    private string userMessage;
+
+    private async Task SendMessage()
+    {
+        var message = new ChatMessage
+            {
+                UserMessage = userMessage,
+                BotResponse = "Response from bot", // Optional, backend may handle this
+                Rating = 0
+            };
+
+        await ChatService.AddMessageAsync(message);
+        userMessage = string.Empty; // Clear input
+    }
+}

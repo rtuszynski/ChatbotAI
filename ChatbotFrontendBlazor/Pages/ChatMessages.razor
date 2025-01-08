@@ -44,7 +44,7 @@
                 var lastMessage = messages.Last();
                 <div class="list-group-item">
                     <strong class="text-secondary">User:</strong> @lastMessage.UserMessage<br />
-                    <strong class="text-secondary">Bot:</strong> <span id="botResponse-@lastMessage.Id"></span><br />
+                    <strong class="text-secondary">Bot:</strong> <span id="botResponse-@lastMessage.Id">@botResponse</span><br />
 
                     @if (lastMessage.Rating != null)
                     {
@@ -71,10 +71,18 @@
 
 @code {
     private List<ChatMessage> messages;
+    private bool isFirstLoad = true;
+    private string botResponse = string.Empty;
 
     protected override async Task OnInitializedAsync()
     {
         messages = await ChatService.GetMessagesAsync();
+        if (messages.Count > 0)
+        {
+            var lastMessage = messages.Last();
+            botResponse = lastMessage.BotResponse;
+        }
+        isFirstLoad = false;
     }
 
     private async Task UpdateRating(int id, int rating)
@@ -88,9 +96,10 @@
         messages = await ChatService.GetMessagesAsync();
         StateHasChanged();
         await ScrollToBottom();
-        if (messages.Count > 0)
+        if (!isFirstLoad && messages.Count > 0)
         {
             var lastMessage = messages.Last();
+            botResponse = string.Empty;
             await JSRuntime.InvokeVoidAsync("typeWriter", $"botResponse-{lastMessage.Id}", lastMessage.BotResponse);
         }
     }

@@ -14,8 +14,15 @@ public class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
         builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<Program>());
+
         builder.Services.AddDbContext<ChatbotContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+        builder.Services.AddCors(options =>
+        {
+            options.AddPolicy("AllowAll", policy =>
+                policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+        });
 
         var app = builder.Build();
 
@@ -26,6 +33,7 @@ public class Program
             app.UseSwaggerUI();
         }
 
+        app.UseCors("AllowAll");
         app.UseHttpsRedirection();
         app.UseAuthorization();
         app.MapControllers();

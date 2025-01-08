@@ -39,6 +39,6 @@
     private async Task UpdateRating(int id, int rating)
     {
         await ChatService.UpdateRatingAsync(id, rating);
-        messages = await ChatService.GetMessagesAsync(); // Refresh list
+        messages = await ChatService.GetMessagesAsync();
     }
 }

@@ -18,11 +18,11 @@
         var message = new ChatMessage
             {
                 UserMessage = userMessage,
-                BotResponse = "Response from bot", // Optional, backend may handle this
+                BotResponse = "Response from bot",
                 Rating = 0
             };
 
         await ChatService.AddMessageAsync(message);
-        userMessage = string.Empty; // Clear input
+        userMessage = string.Empty;
     }
 }

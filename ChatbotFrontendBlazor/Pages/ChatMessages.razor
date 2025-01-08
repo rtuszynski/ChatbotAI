@@ -106,6 +106,7 @@
             var lastMessage = messages.Last();
             botResponse = string.Empty;
             isTyping = true;
+            StateHasChanged();
             await JSRuntime.InvokeVoidAsync("clearElementContent", $"botResponse-{lastMessage.Id}");
             await JSRuntime.InvokeVoidAsync("typeWriter", $"botResponse-{lastMessage.Id}", lastMessage.BotResponse);
         }
@@ -120,5 +121,6 @@
     {
         await JSRuntime.InvokeVoidAsync("stopTypeWriter");
         isTyping = false;
+        StateHasChanged();
     }
 }

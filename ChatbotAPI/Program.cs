@@ -1,3 +1,6 @@
+using ChatbotAPI.Data;
+using Microsoft.EntityFrameworkCore;
+
 namespace ChatbotAPI;
 
 public class Program
@@ -11,6 +14,9 @@ public class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
+        builder.Services.AddDbContext<ChatbotContext>(options =>
+            options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
@@ -21,9 +27,7 @@ public class Program
         }
 
         app.UseHttpsRedirection();
-
         app.UseAuthorization();
-
         app.MapControllers();
 
         app.Run();

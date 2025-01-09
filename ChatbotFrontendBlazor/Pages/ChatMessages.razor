@@ -121,6 +121,13 @@
     {
         await JSRuntime.InvokeVoidAsync("stopTypeWriter");
         isTyping = false;
+
+        botResponse = await JSRuntime.InvokeAsync<string>("getElementContent", $"botResponse-{messages.Last().Id}");
+
+        var lastMessage = messages.Last();
+        lastMessage.BotResponse = botResponse;
+        await ChatService.UpdateMessageAsync(lastMessage);
+
         StateHasChanged();
     }
 }

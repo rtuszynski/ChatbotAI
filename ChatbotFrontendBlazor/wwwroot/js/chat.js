@@ -12,6 +12,10 @@ function typeWriter(elementId, text, delay = 50) {
     type();
 }
 
+function getElementContent(elementId) {
+    return document.getElementById(elementId).innerText;
+}
+
 function clearElementContent(elementId) {
     document.getElementById(elementId).innerHTML = '';
 }

@@ -35,6 +35,22 @@ public class ChatController : ControllerBase
         return CreatedAtAction(nameof(GetMessages), new { id = message.Id }, message);
     }
 
+    [HttpPut("messages/{id}")]
+    public async Task<IActionResult> UpdateMessage(int id, [FromBody] UpdateChatMessageCommand command)
+    {
+        if (id != command.Id || !ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        var result = await _mediator.Send(command);
+        if (!result)
+        {
+            return NotFound();
+        }
+        return NoContent();
+    }
+
     [HttpPut("messages/{id}/rating")]
     public async Task<IActionResult> UpdateRating(int id, [FromBody] int rating)
     {

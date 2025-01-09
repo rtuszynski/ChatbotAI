@@ -47,4 +47,9 @@ public class ChatService
     {
         await _httpClient.PutAsJsonAsync($"chat/messages/{id}/rating", rating);
     }
+
+    public async Task UpdateMessageAsync(ChatMessage message)
+    {
+        await _httpClient.PutAsJsonAsync($"chat/messages/{message.Id}", message);
+    }
 }

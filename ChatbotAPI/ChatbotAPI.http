@@ -15,6 +15,16 @@ Content-Type: application/json
 
 ###
 
+PUT {{ChatbotAPI_HostAddress}}/api/chat/messages/3
+Content-Type: application/json
+
+{
+    "id": 3,
+    "botResponse": "Response"
+}
+
+###
+
 PUT {{ChatbotAPI_HostAddress}}/api/chat/messages/1/rating
 Content-Type: application/json
 

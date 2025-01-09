@@ -2,8 +2,12 @@
 
 <PageTitle>ChatBot</PageTitle>
 
-<ChatMessages @ref="chatMessagesRef" />
-<ChatInput OnMessageSent="HandleMessageSent" />
+<div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="d-flex flex-column w-100 h-100">
+        <ChatMessages @ref="chatMessagesRef" />
+        <ChatInput OnMessageSent="HandleMessageSent" />
+    </div>
+</div>
 
 @code {
     private ChatMessages chatMessagesRef;

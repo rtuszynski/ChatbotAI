@@ -4,14 +4,13 @@
 
 <div class="container mt-4">
     <h3 class="text-primary">Send a Message</h3>
-    <EditForm Model="newMessage" OnValidSubmit="SendMessage">
+    <EditForm Model="newMessage" OnValidSubmit="SendMessage" class="mt-3">
         <DataAnnotationsValidator />
-
-        <div class="form-group">
+        <div class="form-group mb-3">
             <InputText class="form-control" @bind-Value="newMessage.UserMessage" placeholder="Your message" />
-            <ValidationMessage For="@(() => newMessage.UserMessage)" class="text-danger" />
+            <ValidationMessage For="@(() => newMessage.UserMessage)" class="text-danger mt-2" />
         </div>
-        <button class="btn btn-primary" type="submit">Send</button>
+        <button class="btn btn-primary w-100" type="submit">Send</button>
     </EditForm>
 </div>
 
@@ -24,7 +23,6 @@
     {
         await ChatService.AddMessageAsync(newMessage);
         await OnMessageSent.InvokeAsync();
-
         newMessage = new ChatMessage();
     }
 }

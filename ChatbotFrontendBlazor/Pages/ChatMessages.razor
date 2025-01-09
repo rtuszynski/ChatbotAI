@@ -12,27 +12,29 @@
     }
     else
     {
-        <div class="list-group" id="chatMessages" style="max-height: 700px; overflow-y: auto;">
+        <div class="list-group" id="chatMessages" style="max-height: 540px; overflow-y: auto;">
             @foreach (var message in messages.Take(messages.Count - 1))
             {
                 <div class="list-group-item">
                     <strong class="text-secondary">User:</strong> @message.UserMessage<br />
                     <strong class="text-secondary">Bot:</strong> @message.BotResponse<br />
-
                     @if (message.Rating != null)
                     {
-                        <strong class="text-secondary">Rating: </strong>
-                        @if (message.Rating == 1)
-                        {
-                            <strong class="text-success">GOOD</strong>
-                        }
-                        else if (message.Rating == -1)
-                        {
-                            <strong class="text-danger">BAD</strong>
-                        }
+                        <div class="mt-2">
+                            <strong class="text-secondary">Rating:</strong>
+                            <div class="ms-3">
+                                @if (message.Rating == 1)
+                                {
+                                    <strong class="text-success">GOOD</strong>
+                                }
+                                else if (message.Rating == -1)
+                                {
+                                    <strong class="text-danger">BAD</strong>
+                                }
+                            </div>
+                        </div>
                     }
-
-                    <div class="mt-2">
+                    <div class="mt-2 d-flex">
                         <button class="btn btn-success btn-sm me-2" @onclick="() => UpdateRating(message.Id, 1)">👍</button>
                         <button class="btn btn-danger btn-sm" @onclick="() => UpdateRating(message.Id, -1)">👎</button>
                     </div>
@@ -45,21 +47,23 @@
                 <div class="list-group-item">
                     <strong class="text-secondary">User:</strong> @lastMessage.UserMessage<br />
                     <strong class="text-secondary">Bot:</strong> <span id="botResponse-@lastMessage.Id">@botResponse</span><br />
-
                     @if (lastMessage.Rating != null)
                     {
-                        <strong class="text-secondary">Rating: </strong>
-                        @if (lastMessage.Rating == 1)
-                        {
-                            <strong class="text-success">GOOD</strong>
-                        }
-                        else if (lastMessage.Rating == -1)
-                        {
-                            <strong class="text-danger">BAD</strong>
-                        }
+                        <div class="mt-2">
+                            <strong class="text-secondary">Rating:</strong>
+                            <div class="ms-3">
+                                @if (lastMessage.Rating == 1)
+                                {
+                                    <strong class="text-success">GOOD</strong>
+                                }
+                                else if (lastMessage.Rating == -1)
+                                {
+                                    <strong class="text-danger">BAD</strong>
+                                }
+                            </div>
+                        </div>
                     }
-
-                    <div class="mt-2">
+                    <div class="mt-2 d-flex">
                         <button class="btn btn-success btn-sm me-2" @onclick="() => UpdateRating(lastMessage.Id, 1)">👍</button>
                         <button class="btn btn-danger btn-sm me-2" @onclick="() => UpdateRating(lastMessage.Id, -1)">👎</button>
                         @if (isTyping)
@@ -121,13 +125,10 @@
     {
         await JSRuntime.InvokeVoidAsync("stopTypeWriter");
         isTyping = false;
-
         botResponse = await JSRuntime.InvokeAsync<string>("getElementContent", $"botResponse-{messages.Last().Id}");
-
         var lastMessage = messages.Last();
         lastMessage.BotResponse = botResponse;
         await ChatService.UpdateMessageAsync(lastMessage);
-
         StateHasChanged();
     }
 }

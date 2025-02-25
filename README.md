@@ -1,4 +1,4 @@
-## AI Chatbot Prototype
+#### AI Chatbot Prototype
 This project is a prototype of an AI chatbot assistant to integrate real AI model in the future.
 
 The prototype includes:
@@ -7,7 +7,7 @@ The prototype includes:
 
 Currently, chatbot responses are generated randomly or follow simple predefined rules, such as returning `"Lorem ipsum..."`.
 
-## Features
+#### Features
 - Basic chatbot simulation
 - Backend API for chatbot logic
 - Simple Blazor-based frontend for interaction

@@ -1,5 +1,5 @@
 #### AI Chatbot Prototype
-This project is a prototype of an AI chatbot assistant to integrate real AI model in the future.
+This project is a prototype of an AI chatbot assistant to integrate with real AI model in the future.
 
 The prototype includes:
 - A **Backend API** that provides the core functionality for chatbot responses.

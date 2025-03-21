@@ -15,7 +15,10 @@ public class UpdateChatMessageRatingHandler : IRequestHandler<UpdateChatMessageR
     public async Task<bool> Handle(UpdateChatMessageRatingCommand request, CancellationToken cancellationToken)
     {
         var message = await _context.ChatMessages.FindAsync(request.Id);
-        if (message == null) return false;
+        if (message == null)
+        {
+           return false;
+        }
 
         message.Rating = request.Rating;
         await _context.SaveChangesAsync(cancellationToken);
